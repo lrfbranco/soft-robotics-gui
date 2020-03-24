@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setCurrentDate();
+    setDebugLabel();
 }
 
 MainWindow::~MainWindow()
@@ -15,8 +15,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setCurrentDate(){
+void MainWindow::setDateLabel(){
     QLocale::setDefault(QLocale("en_US"));
     QDate currDate = QDate::currentDate();
     ui->dateLabel->setText(QLocale().toString(currDate));
+}
+
+void MainWindow::setDebugLabel(){
+    ui->debugLabel->setText("test");
 }

@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    void setCurrentDate();
+    void setDateLabel();
+    void setDebugLabel();
 };
 #endif // MAINWINDOW_H
