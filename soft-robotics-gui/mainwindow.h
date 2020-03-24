@@ -19,5 +19,7 @@ private:
     Ui::MainWindow *ui;
     void setDateLabel();
     void setDebugLabel();
+    void initSensorIcons();
+    void initStatusIcons();
 };
 #endif // MAINWINDOW_H
