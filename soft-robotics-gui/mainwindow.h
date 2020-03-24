@@ -17,5 +17,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void setCurrentDate();
 };
 #endif // MAINWINDOW_H
