@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::CalibrationWindow *ui;
+    void initSensorIcons();
 };
 
 #endif // CALIBRATIONWINDOW_H

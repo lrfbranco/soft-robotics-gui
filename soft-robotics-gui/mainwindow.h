@@ -27,7 +27,6 @@ private:
 
     void setDateLabel();
     void setDebugLabel();
-    void initSensorIcons();
     void initStatusIcons();
     void setButtonStyles();
 };
