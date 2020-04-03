@@ -95,3 +95,9 @@ void MainWindow::setButtonStyles(){
 //{
 
 //}
+
+void MainWindow::on_calibrationButton_clicked()
+{
+    calibrWin = new CalibrationWindow(this);
+    calibrWin->show();
+}
