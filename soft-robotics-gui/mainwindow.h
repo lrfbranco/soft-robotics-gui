@@ -24,5 +24,6 @@ private:
     void setDebugLabel();
     void initSensorIcons();
     void initStatusIcons();
+    void setButtonStyles();
 };
 #endif // MAINWINDOW_H

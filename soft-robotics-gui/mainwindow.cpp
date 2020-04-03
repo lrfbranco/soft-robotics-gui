@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     initSensorIcons();
     initStatusIcons();
 //    setLabelRunningStopped()
+    setButtonStyles();
 }
 
 MainWindow::~MainWindow()
@@ -62,7 +63,20 @@ void MainWindow::initStatusIcons(){
                 .scaled(30, 30, Qt::KeepAspectRatio));
 }
 
+void MainWindow::setButtonStyles(){
+//    ui->stopButton:keyPressEvent()
+//    QPushButton:pressed {
+//        background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(60, 186, 162, 255), stop:1 rgba(98, 211, 162, 255))
+//    }
+//    QPushButton {
+//         background-color: #3cbaa2; border: 1px solid black;
+//         border-radius: 5px;
+//    }
 
+//    QPushButton:disabled {
+//        background-color: rgb(170, 170, 127)
+//    }
+}
 
 
 

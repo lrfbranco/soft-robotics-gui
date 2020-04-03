@@ -17,8 +17,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
+      <x>30</x>
+      <y>450</y>
       <width>601</width>
       <height>541</height>
      </rect>
@@ -212,8 +212,8 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>10</y>
+      <x>650</x>
+      <y>460</y>
       <width>151</width>
       <height>161</height>
      </rect>
@@ -517,7 +517,7 @@
    <widget class="QGroupBox" name="statusGroupBox">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>430</x>
       <y>10</y>
       <width>200</width>
       <height>69</height>
@@ -611,9 +611,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>335</width>
-      <height>62</height>
+      <y>10</y>
+      <width>411</width>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -723,6 +723,93 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="calibrationButton">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>10</y>
+      <width>70</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/img/calib.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>70</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton:pressed {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(0, 210, 0, 255), stop:1 rgba(80, 255, 80, 255))
+}
+QPushButton {
+     background-color: #00D200; border: 1px solid black;
+	 font-size: 20px;
+     border-radius: 35px;
+}
+
+QPushButton:disabled {
+    background-color: rgb(170, 170, 127)
+}</string>
+    </property>
+    <property name="text">
+     <string>START</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>70</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>781</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton:pressed {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(210, 0, 0, 255), stop:1 rgba(255, 80, 80, 255))
+}
+QPushButton {
+     background-color: #D20000; border: 1px solid black;
+	 font-size:40px;
+     border-radius: 15px;
+}
+
+QPushButton:disabled {
+    background-color: rgb(210, 0, 0)
+}</string>
+    </property>
+    <property name="text">
+     <string>STOP</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -733,8 +820,20 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad_patient"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_patient">
+   <property name="text">
+    <string>Load patient...</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="Resources.qrc"/>
