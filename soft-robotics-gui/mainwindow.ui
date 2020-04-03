@@ -589,7 +589,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="labelRunStop">
+      <widget class="QLabel" name="labelRunningStopped">
        <property name="font">
         <font>
          <pointsize>15</pointsize>
@@ -607,7 +607,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>

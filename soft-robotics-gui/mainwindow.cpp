@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     setDateLabel();
     initSensorIcons();
     initStatusIcons();
+//    setLabelRunningStopped()
 }
 
 MainWindow::~MainWindow()
@@ -60,3 +61,23 @@ void MainWindow::initStatusIcons(){
                 QPixmap(QString::fromUtf8(":/img/redAlert.png"))
                 .scaled(30, 30, Qt::KeepAspectRatio));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//void MainWindow::on_labelRunningStopped_objectNameChanged(const QString &objectName)
+//{
+
+//}
