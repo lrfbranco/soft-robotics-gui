@@ -321,18 +321,34 @@
      <rect>
       <x>720</x>
       <y>10</y>
-      <width>70</width>
-      <height>70</height>
+      <width>75</width>
+      <height>75</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>75</width>
+      <height>75</height>
+     </size>
+    </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton:pressed {
-    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(0, 210, 0, 255), stop:1 rgba(80, 255, 80, 255))
+     <string notr="true">QPushButton:hover {
+    background-color: rgb(255, 43, 43);
 }
+
+QPushButton:pressed {
+    background-color: qlineargradient(
+		spread:pad, x1:0, y1:0, x2:0, y2:1,   
+		stop:0 rgba(0, 210, 0, 255), 
+		stop:1 rgba(80, 255, 80, 255)
+	)
+}
+
 QPushButton {
      background-color: #00D200; border: 1px solid black;
 	 font-size: 20px;
      border-radius: 35px;
+    padding: 6px;
 }
 
 QPushButton:disabled {
@@ -361,22 +377,40 @@ QPushButton:disabled {
       <height>61</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>60</height>
+     </size>
+    </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton:pressed {
-    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,   stop:0 rgba(210, 0, 0, 255), stop:1 rgba(255, 80, 80, 255))
+     <string notr="true">QPushButton:hover {
+    background-color: #E84D0C;
+}
+
+QPushButton:pressed {
+
+   border-style: inset;
 }
 QPushButton {
-     background-color: #D20000; border: 1px solid black;
-	 font-size:40px;
-     border-radius: 15px;
+    background-color:#FF3C19; 
+	border: 3px #BF2D13;
+	font:40px;
+    border-radius: 15px;
+    padding: 6px;
+    border-style: outset;
+	color: #400F06;
 }
 
 QPushButton:disabled {
-    background-color: rgb(210, 0, 0)
+    background-color: rgb(166, 166, 166)
 }</string>
     </property>
     <property name="text">
      <string>STOP</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox">
