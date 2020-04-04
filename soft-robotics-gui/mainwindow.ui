@@ -331,32 +331,39 @@
       <height>75</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <family>MS UI Gothic</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton:hover {
-    background-color: rgb(255, 43, 43);
+    background-color: #22E626;
 }
 
 QPushButton:pressed {
-    background-color: qlineargradient(
-		spread:pad, x1:0, y1:0, x2:0, y2:1,   
-		stop:0 rgba(0, 210, 0, 255), 
-		stop:1 rgba(80, 255, 80, 255)
-	)
+   	border-style: inset;
 }
-
 QPushButton {
-     background-color: #00D200; border: 1px solid black;
-	 font-size: 20px;
-     border-radius: 35px;
+    background-color:#26FF28; 
+	border: 4px #138015;
+    border-radius: 37px;
     padding: 6px;
+    border-style: outset;
+	font: 30px;
+	color: #0A400A;
 }
 
 QPushButton:disabled {
-    background-color: rgb(170, 170, 127)
+    background-color: rgb(166, 166, 166)
 }</string>
     </property>
     <property name="text">
-     <string>START</string>
+     <string>GO</string>
     </property>
     <property name="iconSize">
      <size>
@@ -383,22 +390,30 @@ QPushButton:disabled {
       <height>60</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <family>MS UI Gothic</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton:hover {
-    background-color: #E84D0C;
+    background-color: #E63617;
 }
 
 QPushButton:pressed {
-
-   border-style: inset;
+   	border-style: inset;
 }
 QPushButton {
     background-color:#FF3C19; 
-	border: 3px #BF2D13;
-	font:40px;
+	border: 4px #BF2D13;
     border-radius: 15px;
     padding: 6px;
     border-style: outset;
+	font:40px;
 	color: #400F06;
 }
 
@@ -417,7 +432,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>170</y>
+      <y>130</y>
       <width>761</width>
       <height>421</height>
      </rect>
