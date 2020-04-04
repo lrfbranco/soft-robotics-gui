@@ -29,5 +29,6 @@ private:
     void setDebugLabel();
     void initStatusIcons();
     void setButtonStyles();
+    void initGaitMetricsTable();
 };
 #endif // MAINWINDOW_H

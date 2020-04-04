@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     initStatusIcons();
 //    setLabelRunningStopped()
     setButtonStyles();
+    initGaitMetricsTable();
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,17 @@ void MainWindow::setButtonStyles(){
 //    }
 }
 
+void MainWindow::initGaitMetricsTable(){
+    QTableWidget* m_pTableWidget = ui->gaitMetricsTable;
+    m_pTableWidget->setColumnCount(7);
+    m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    QStringList  m_TableHeader;
+    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
+                 << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
+    m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
+    m_pTableWidget->setWordWrap(true);
+}
 
 
 
