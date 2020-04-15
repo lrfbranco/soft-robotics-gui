@@ -8,6 +8,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class QStandardItemModel;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +28,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;
+    QStandardItemModel *mModel;
 
     void setDateLabel();
     void setDebugLabel();

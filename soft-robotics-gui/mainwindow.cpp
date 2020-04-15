@@ -8,6 +8,9 @@
 #include <QString>
 #include <QThread>
 
+#include <QStandardItemModel>
+#include <QTextStream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -19,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
 //    setLabelRunningStopped()
     setButtonStyles();
     initGaitMetricsTable();
+
+    mModel = new QStandardItemModel(this);
+    ui->gaitMetricsTableView->setModel(mModel);
 }
 
 MainWindow::~MainWindow()
@@ -62,33 +68,16 @@ void MainWindow::setButtonStyles(){
 }
 
 void MainWindow::initGaitMetricsTable(){
-    QTableWidget* m_pTableWidget = ui->gaitMetricsTable;
-    m_pTableWidget->setColumnCount(7);
-    m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+//    QTableWidget* m_pTableWidget = ui->gaitMetricsTable;
+//    m_pTableWidget->setColumnCount(7);
+//    m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QStringList  m_TableHeader;
-    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
-                 << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
-    m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
-    m_pTableWidget->setWordWrap(true);
+//    QStringList  m_TableHeader;
+//    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
+//                 << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
+//    m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
+//    m_pTableWidget->setWordWrap(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//void MainWindow::on_labelRunningStopped_objectNameChanged(const QString &objectName)
-//{
-
-//}
 
 void MainWindow::on_calibrationButton_clicked()
 {
@@ -98,20 +87,19 @@ void MainWindow::on_calibrationButton_clicked()
 
 void MainWindow::on_actionLoadPatient_triggered()
 {
-    QStringList fileName;
-    const QStringList fileFilters = { "CSV Files (*.csv)" , "Text Files (*.txt)" };
     QFileDialog fileDialog(this);
-
     fileDialog.setFileMode(QFileDialog::ExistingFile);
     fileDialog.setViewMode(QFileDialog::Detail);
+    const QStringList fileFilters = { "CSV Files (*.csv)" , "Text Files (*.txt)" };
     fileDialog.setNameFilters(fileFilters);
 
+    QStringList fileName;
     if (fileDialog.exec()) {
         fileName = fileDialog.selectedFiles();
     }
 
     if (fileName.isEmpty()) {
-        showErrorMessage(0, fileName.first());
+//        showErrorMessage(0);
         return;
     }
 
@@ -122,8 +110,24 @@ void MainWindow::on_actionLoadPatient_triggered()
         return;
     }
 
+    QTextStream xin(&file);
+    int ix = 0;
+    while (!xin.atEnd()) {
+        mModel->setRowCount(ix);
+        auto line = xin.readLine();
+        auto values = line.split(";");
+        const int colCount = values.size();
+        mModel->setColumnCount(colCount);
+        for (int jx = 0; jx < colCount; ++jx) {
+//            mModel->setData(, values.at(jx));
+//            item->set
+            QStandardItem *item = new QStandardItem(values.at(jx));
+            mModel->setItem(ix, jx, item);
 
-
+        }
+        ++ix;
+    }
+    file.close();
 }
 
 void MainWindow::showErrorMessage(int errorNum, QString msg){
