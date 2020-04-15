@@ -98,11 +98,14 @@ void MainWindow::on_calibrationButton_clicked()
 
 void MainWindow::on_actionLoadPatient_triggered()
 {
+    QStringList fileName;
+    const QStringList fileFilters = { "CSV Files (*.csv)" , "Text Files (*.txt)" };
     QFileDialog fileDialog(this);
+
     fileDialog.setFileMode(QFileDialog::ExistingFile);
     fileDialog.setViewMode(QFileDialog::Detail);
-    fileDialog.setNameFilter(tr("CSV Files (*.csv), Text Files (*.txt)"));
-    QStringList fileName;
+    fileDialog.setNameFilters(fileFilters);
+
     if (fileDialog.exec()) {
         fileName = fileDialog.selectedFiles();
     }
