@@ -111,23 +111,42 @@ void MainWindow::on_actionLoadPatient_triggered()
     }
 
     QTextStream xin(&file);
+    // Read first line with metadata and header:
+    auto currLine = xin.readLine();
+    auto cellsOnCurrLine = currLine.split(";");
+    auto metadata = cellsOnCurrLine.takeFirst().split("#");
+    auto header = cellsOnCurrLine;
+
+    ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
+    ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
+
+    const int colCount = header.size();
+    mModel->setColumnCount(colCount);
+
+    // Read rest of file
     int ix = 0;
     while (!xin.atEnd()) {
-        mModel->setRowCount(ix);
-        auto line = xin.readLine();
-        auto values = line.split(";");
-        const int colCount = values.size();
-        mModel->setColumnCount(colCount);
+        mModel->setRowCount(ix); // Update nRows of table
+        currLine = xin.readLine();
+        auto cellsOnCurrLine = currLine.split(";");
+        cellsOnCurrLine.takeFirst(); // Remove first element of all lines because of metadata
+
         for (int jx = 0; jx < colCount; ++jx) {
-//            mModel->setData(, values.at(jx));
-//            item->set
-            QStandardItem *item = new QStandardItem(values.at(jx));
+            QStandardItem *item = new QStandardItem(cellsOnCurrLine.at(jx));
             mModel->setItem(ix, jx, item);
 
         }
         ++ix;
     }
     file.close();
+
+    QStringList m_TableHeader;
+    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
+                    << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
+    mModel->setHorizontalHeaderLabels(m_TableHeader);
+    ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
 }
 
 void MainWindow::showErrorMessage(int errorNum, QString msg){

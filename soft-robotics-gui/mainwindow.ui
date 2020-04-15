@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>830</width>
     <height>658</height>
    </rect>
   </property>
@@ -433,7 +433,7 @@ QPushButton:disabled {
      <rect>
       <x>10</x>
       <y>170</y>
-      <width>761</width>
+      <width>801</width>
       <height>421</height>
      </rect>
     </property>
@@ -450,7 +450,7 @@ QPushButton:disabled {
       <rect>
        <x>30</x>
        <y>30</y>
-       <width>701</width>
+       <width>751</width>
        <height>251</height>
       </rect>
      </property>
@@ -462,7 +462,7 @@ QPushButton:disabled {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>830</width>
      <height>23</height>
     </rect>
    </property>
