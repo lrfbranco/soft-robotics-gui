@@ -21,6 +21,8 @@ private slots:
 
     void on_calibrationButton_clicked();
 
+    void on_actionLoadPatient_triggered();
+
 private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;
@@ -30,5 +32,7 @@ private:
     void initStatusIcons();
     void setButtonStyles();
     void initGaitMetricsTable();
+
+    void showErrorMessage(int errorNum, QString msg = nullptr);
 };
 #endif // MAINWINDOW_H

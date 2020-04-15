@@ -2,6 +2,11 @@
 #include "ui_mainwindow.h"
 #include <QDate>
 #include <QDebug>
+#include <QFileDialog>
+#include <QFile>
+#include <QMessageBox>
+#include <QString>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -90,3 +95,68 @@ void MainWindow::on_calibrationButton_clicked()
     calibrWin = new CalibrationWindow(this);
     calibrWin->show();
 }
+
+void MainWindow::on_actionLoadPatient_triggered()
+{
+    QFileDialog fileDialog(this);
+    fileDialog.setFileMode(QFileDialog::ExistingFile);
+    fileDialog.setViewMode(QFileDialog::Detail);
+    fileDialog.setNameFilter(tr("Text Files (*.txt)"));
+    QStringList fileName;
+    if (fileDialog.exec()) {
+        fileName = fileDialog.selectedFiles();
+    }
+
+    if (fileName.isEmpty()) {
+        showErrorMessage(0, fileName.first());
+        return;
+    }
+
+    QFile file(fileName.first());
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        showErrorMessage(0, fileName.first());
+        return;
+    }
+
+
+
+}
+
+void MainWindow::showErrorMessage(int errorNum, QString msg){
+    QMessageBox mBox;
+    QString s;
+    switch(errorNum){
+        case 0:
+            // Error opening file
+            s = "Could not open file: \"" + msg + "\".";
+            mBox.information(this, "Error", s);
+        break;
+        default:
+            mBox.information(this, "Error", "An error has occurred.");
+        break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
