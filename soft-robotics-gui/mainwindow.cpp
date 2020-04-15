@@ -101,7 +101,7 @@ void MainWindow::on_actionLoadPatient_triggered()
     QFileDialog fileDialog(this);
     fileDialog.setFileMode(QFileDialog::ExistingFile);
     fileDialog.setViewMode(QFileDialog::Detail);
-    fileDialog.setNameFilter(tr("Text Files (*.txt)"));
+    fileDialog.setNameFilter(tr("CSV Files (*.csv), Text Files (*.txt)"));
     QStringList fileName;
     if (fileDialog.exec()) {
         fileName = fileDialog.selectedFiles();
