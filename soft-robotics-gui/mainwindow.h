@@ -25,10 +25,15 @@ private slots:
 
     void on_actionLoadPatient_triggered();
 
+    void on_actionSave_triggered();
+
 private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;
     QStandardItemModel *mModel;
+    QString getValueAt(int ix, int jx);
+    QString patientMetadata;
+    QStringList gaitMetricsTableHeader;
 
     void setDateLabel();
     void setDebugLabel();
@@ -36,6 +41,6 @@ private:
     void setButtonStyles();
     void initGaitMetricsTable();
 
-    void showErrorMessage(int errorNum, QString msg = nullptr);
+    void showErrorMessage(QString msg = nullptr, int errorNum = 0);
 };
 #endif // MAINWINDOW_H

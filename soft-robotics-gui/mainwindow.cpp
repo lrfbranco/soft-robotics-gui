@@ -99,28 +99,29 @@ void MainWindow::on_actionLoadPatient_triggered()
     }
 
     if (fileName.isEmpty()) {
-//        showErrorMessage(0);
+//        showErrorMessage();
         return;
     }
 
     QFile file(fileName.first());
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        showErrorMessage(0, fileName.first());
+        showErrorMessage(fileName.first(), 1);
         return;
     }
 
     QTextStream xin(&file);
     // Read first line with metadata and header:
     auto currLine = xin.readLine();
-    auto cellsOnCurrLine = currLine.split(";");
-    auto metadata = cellsOnCurrLine.takeFirst().split("#");
-    auto header = cellsOnCurrLine;
+    auto cellsOnCurrLine = currLine.split(",");
+    patientMetadata = cellsOnCurrLine.takeFirst(); // Remove first for metadata
+    auto metadata = patientMetadata.split("#");
+    gaitMetricsTableHeader = cellsOnCurrLine; // The rest is header
 
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
 
-    const int colCount = header.size();
+    const int colCount = gaitMetricsTableHeader.size();
     mModel->setColumnCount(colCount);
 
     // Read rest of file
@@ -128,7 +129,7 @@ void MainWindow::on_actionLoadPatient_triggered()
     while (!xin.atEnd()) {
         mModel->setRowCount(ix); // Update nRows of table
         currLine = xin.readLine();
-        auto cellsOnCurrLine = currLine.split(";");
+        auto cellsOnCurrLine = currLine.split(",");
         cellsOnCurrLine.takeFirst(); // Remove first element of all lines because of metadata
 
         for (int jx = 0; jx < colCount; ++jx) {
@@ -149,20 +150,74 @@ void MainWindow::on_actionLoadPatient_triggered()
     ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
 }
 
-void MainWindow::showErrorMessage(int errorNum, QString msg){
+void MainWindow::on_actionSave_triggered()
+{
+    if (patientMetadata == nullptr){
+        showErrorMessage("patientMetadata not defined.", 0);
+        return;
+    }
+    auto filename = QFileDialog::getSaveFileName(this,
+        "Save", QDir::rootPath(), "CSV File (*.csv)");
+    if (filename.isEmpty()){
+        return;
+    }
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        return;
+    }
+    QTextStream xout(&file);
+    const int rowCount = mModel->rowCount();
+    const int colCount = mModel->columnCount();
+
+    // Save first line with format: metadata, headers
+    xout << patientMetadata;
+    foreach (const QString &header, gaitMetricsTableHeader) {
+        xout << "," << header;
+    }
+    xout << "\n";
+
+    // Save table values with index in first column (placeholder for metadata)
+    for (int ix = 0; ix < rowCount; ++ix){
+        xout << ix + 1 << "," << getValueAt(ix, 0);
+        for (int jx = 1; jx < colCount; ++jx){
+            xout << "," << getValueAt(ix, jx);
+        }
+        xout << "\n";
+    }
+    file.flush();
+    file.close();
+
+}
+
+QString MainWindow::getValueAt(int ix, int jx)
+{
+    if (!mModel->item(ix, jx)) {
+        return "";
+    }
+    return mModel->item(ix, jx)->text();
+}
+
+void MainWindow::showErrorMessage(QString msg, int errorNum){
     QMessageBox mBox;
     QString s;
     switch(errorNum){
         case 0:
+            // Generic error message
+            s = "An error has occurred. Data:\n\"" + msg + "\".";
+            mBox.information(this, "Error", s);
+        break;
+        case 1:
             // Error opening file
             s = "Could not open file: \"" + msg + "\".";
             mBox.information(this, "Error", s);
         break;
         default:
+            // Generic error without message
             mBox.information(this, "Error", "An error has occurred.");
         break;
     }
 }
+
 
 
 

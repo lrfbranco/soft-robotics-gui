@@ -471,16 +471,25 @@ QPushButton:disabled {
      <string>File</string>
     </property>
     <addaction name="actionLoadPatient"/>
+    <addaction name="actionSave"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoadPatient">
    <property name="text">
-    <string>Load patient...</string>
+    <string>Load</string>
    </property>
    <property name="toolTip">
     <string>Load patient previous sessions</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save patient sessions</string>
    </property>
   </action>
  </widget>
