@@ -34,6 +34,7 @@ private:
     QString getValueAt(int ix, int jx);
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;
+    qint32 getMonthsSinceStroke();
 
     void setDateLabel();
     void setDebugLabel();

@@ -119,7 +119,16 @@ void MainWindow::on_actionLoadPatient_triggered()
     gaitMetricsTableHeader = cellsOnCurrLine; // The rest is header
 
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
+//    ui->patientNameValue->setFixedSize(ui->patientNameValue->sizeHint());
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
+//    ui->physicianNameValue->setFixedSize(ui->physicianNameValue->sizeHint());
+    ui->strokeDateValue->setText(metadata.at(2).split(":").at(1));
+//    ui->strokeDateValue->setFixedSize(ui->strokeDateValue->sizeHint());
+
+    ui->timeSinceStroke->setText(
+                QString("(%1 mos)").arg(getMonthsSinceStroke())
+                );
+//    ui->timeSinceStroke->setFixedSize(ui->timeSinceStroke->sizeHint());
 
     const int colCount = gaitMetricsTableHeader.size();
     mModel->setColumnCount(colCount);
@@ -195,6 +204,20 @@ QString MainWindow::getValueAt(int ix, int jx)
         return "";
     }
     return mModel->item(ix, jx)->text();
+}
+
+qint32 MainWindow::getMonthsSinceStroke()
+{
+    QLocale::setDefault(QLocale("en_US"));
+    QDate currentDate = QDate::currentDate();
+
+    QDate strokeDate = QDate::fromString(
+                ui->strokeDateValue->text(),
+                "MM/dd/yyyy");
+
+    auto daysSinceStroke = strokeDate.daysTo(currentDate);
+
+    return (qint32) daysSinceStroke / 30;
 }
 
 void MainWindow::showErrorMessage(QString msg, int errorNum){
