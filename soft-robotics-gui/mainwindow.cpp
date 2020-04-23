@@ -10,6 +10,9 @@
 
 #include <QStandardItemModel>
 #include <QTextStream>
+#include <spinboxdelegate.h>
+#include <doublespinboxdelegate.h>
+#include <comboboxdelegate.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,12 +22,21 @@ MainWindow::MainWindow(QWidget *parent)
     setDebugLabel();
     setDateLabel();
     initStatusIcons();
-//    setLabelRunningStopped()
     setButtonStyles();
     initGaitMetricsTable();
 
     mModel = new QStandardItemModel(this);
     ui->gaitMetricsTableView->setModel(mModel);
+    m_spinnerDelegate = new SpinBoxDelegate(this);
+    m_doubleSpinDelegate = new DoubleSpinBoxDelegate(this);
+    m_comboBoxDelegate = new ComboBoxDelegate(this);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(1, m_spinnerDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(2, m_spinnerDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(3, m_spinnerDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
+//    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
+
 }
 
 MainWindow::~MainWindow()

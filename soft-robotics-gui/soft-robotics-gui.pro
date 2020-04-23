@@ -17,12 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     calibrationwindow.cpp \
+    comboboxdelegate.cpp \
+    doublespinboxdelegate.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    spinboxdelegate.cpp
 
 HEADERS += \
     calibrationwindow.h \
-    mainwindow.h
+    comboboxdelegate.h \
+    doublespinboxdelegate.h \
+    mainwindow.h \
+    spinboxdelegate.h
 
 FORMS += \
     calibrationwindow.ui \

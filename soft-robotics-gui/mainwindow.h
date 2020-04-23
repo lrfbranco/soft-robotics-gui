@@ -9,6 +9,9 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class QStandardItemModel;
+class SpinBoxDelegate;
+class DoubleSpinBoxDelegate;
+class ComboBoxDelegate;
 
 class MainWindow : public QMainWindow
 {
@@ -31,6 +34,9 @@ private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;
     QStandardItemModel *mModel;
+    SpinBoxDelegate *m_spinnerDelegate;
+    DoubleSpinBoxDelegate *m_doubleSpinDelegate;
+    ComboBoxDelegate *m_comboBoxDelegate;
     QString getValueAt(int ix, int jx);
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;
