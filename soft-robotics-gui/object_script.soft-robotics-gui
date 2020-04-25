@@ -1,0 +1,12 @@
+calibrationwindow.o
+comboboxdelegate.o
+doublespinboxdelegate.o
+main.o
+mainwindow.o
+spinboxdelegate.o
+qrc_Resources.o
+moc_calibrationwindow.o
+moc_comboboxdelegate.o
+moc_doublespinboxdelegate.o
+moc_mainwindow.o
+moc_spinboxdelegate.o
