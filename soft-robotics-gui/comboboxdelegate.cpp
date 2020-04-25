@@ -24,22 +24,15 @@ void ComboBoxDelegate::setEditorData(QWidget *editor,
                            const QModelIndex &index) const
 {
     QComboBox *comboBox = static_cast<QComboBox *>(editor);
-    comboBox->setCurrentIndex(index.data().toInt());
+    auto comboCurrentIdx = comboBox->findText(index.data().toString());
+    comboBox->setCurrentIndex(comboCurrentIdx);
 }
 void ComboBoxDelegate::setModelData(QWidget *editor,
                           QAbstractItemModel *model,
                           const QModelIndex &index) const
 {
     QComboBox *comboBox = static_cast<QComboBox *>(editor);
-
-    qDebug() << "comboBox" << comboBox;
-    qDebug() << "editor" << editor;
-    qDebug() << "ModelIdx" << index;
-    qDebug() << "Idx: " << comboBox->currentIndex();
-    qDebug() << "ItemD: " << comboBox->itemData(comboBox->currentIndex());
-    qDebug() << "ItemD2: " << comboBox->currentData();
-    model->setData(index,
-                   comboBox->itemData(comboBox->currentIndex()));
+    model->setData(index, comboBox->currentText());
 
 }
 void ComboBoxDelegate::updateEditorGeometry(QWidget *editor,

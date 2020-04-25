@@ -1,6 +1,7 @@
 #include "doublespinboxdelegate.h"
 #include <QDoubleSpinBox>
 #include <QDebug>
+#include <QLocale>
 
 DoubleSpinBoxDelegate::DoubleSpinBoxDelegate(QObject *parent) :
     QItemDelegate(parent)
@@ -25,7 +26,8 @@ void DoubleSpinBoxDelegate::setEditorData(QWidget *editor,
                            const QModelIndex &index) const
 {
     QDoubleSpinBox *spinner = static_cast<QDoubleSpinBox *>(editor);
-    spinner->setValue(index.data().toInt());
+    spinner->setValue(index.data().toDouble());
+
 }
 void DoubleSpinBoxDelegate::setModelData(QWidget *editor,
                           QAbstractItemModel *model,
@@ -33,9 +35,6 @@ void DoubleSpinBoxDelegate::setModelData(QWidget *editor,
 {
     QDoubleSpinBox *spinner = static_cast<QDoubleSpinBox *>(editor);
     model->setData(index, spinner->value());
-    qDebug() << "spinner" << spinner;
-    qDebug() << "ModelIdx" << index;
-    qDebug() << "val: " << spinner->value();
 }
 void DoubleSpinBoxDelegate::updateEditorGeometry(QWidget *editor,
                                   const QStyleOptionViewItem &option,

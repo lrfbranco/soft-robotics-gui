@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->setItemDelegateForColumn(3, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
-//    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
 
 }
 
@@ -138,7 +138,7 @@ void MainWindow::on_actionLoadPatient_triggered()
 //    ui->strokeDateValue->setFixedSize(ui->strokeDateValue->sizeHint());
 
     ui->timeSinceStroke->setText(
-                QString("(%1 mos)").arg(getMonthsSinceStroke())
+                QString("(%1 months ago)").arg(getMonthsSinceStroke())
                 );
 //    ui->timeSinceStroke->setFixedSize(ui->timeSinceStroke->sizeHint());
 
