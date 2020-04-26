@@ -13,6 +13,7 @@
 #include <spinboxdelegate.h>
 #include <doublespinboxdelegate.h>
 #include <comboboxdelegate.h>
+#include <QSpinBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,9 +34,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->setItemDelegateForColumn(1, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(2, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(3, m_spinnerDelegate);
-    ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
-    ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
-    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
+//    ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
+//    ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
+//    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
+
+    columnsDelegateSpinner << 1 << 2 << 3;
+    columnsDelegateDoubleSpinner << 4;
+    columnsDelegateComboBox << 5 << 6;
 
 }
 
@@ -142,6 +147,8 @@ void MainWindow::on_actionLoadPatient_triggered()
                 );
 //    ui->timeSinceStroke->setFixedSize(ui->timeSinceStroke->sizeHint());
 
+
+
     const int colCount = gaitMetricsTableHeader.size();
     mModel->setColumnCount(colCount);
 
@@ -156,7 +163,6 @@ void MainWindow::on_actionLoadPatient_triggered()
         for (int jx = 0; jx < colCount; ++jx) {
             QStandardItem *item = new QStandardItem(cellsOnCurrLine.at(jx));
             mModel->setItem(ix, jx, item);
-
         }
         ++ix;
     }

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "calibrationwindow.h"
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +42,7 @@ private:
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;
     qint32 getMonthsSinceStroke();
+    QVector<int> columnsDelegateSpinner, columnsDelegateDoubleSpinner, columnsDelegateComboBox;
 
     void setDateLabel();
     void setDebugLabel();
