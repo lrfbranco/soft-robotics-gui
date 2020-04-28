@@ -23,7 +23,8 @@
      </property>
      <property name="text">
       <string>Patient is already loaded. 
-Do you wish to overwrite the current data?</string>
+Do you wish to continue and 
+overwrite the existing data?</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

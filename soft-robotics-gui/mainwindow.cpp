@@ -271,9 +271,11 @@ void MainWindow::on_actionNew_triggered()
         if(opDialog.exec() == QDialog::Rejected)
             return;
     }
+
     NewPatientWindow npw(this);
-    npw.setModal(true);
-    npw.exec();
+    if (npw.exec() == QDialog::Rejected)
+        return;
+    npw.getBirthDate();
 }
 
 
