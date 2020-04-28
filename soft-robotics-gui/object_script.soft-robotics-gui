@@ -3,10 +3,14 @@ comboboxdelegate.o
 doublespinboxdelegate.o
 main.o
 mainwindow.o
+newpatientwindow.o
+overwritepatientdialog.o
 spinboxdelegate.o
 qrc_Resources.o
 moc_calibrationwindow.o
 moc_comboboxdelegate.o
 moc_doublespinboxdelegate.o
 moc_mainwindow.o
+moc_newpatientwindow.o
+moc_overwritepatientdialog.o
 moc_spinboxdelegate.o

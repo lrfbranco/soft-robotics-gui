@@ -21,6 +21,8 @@ SOURCES += \
     doublespinboxdelegate.cpp \
     main.cpp \
     mainwindow.cpp \
+    newpatientwindow.cpp \
+    overwritepatientdialog.cpp \
     spinboxdelegate.cpp
 
 HEADERS += \
@@ -28,11 +30,15 @@ HEADERS += \
     comboboxdelegate.h \
     doublespinboxdelegate.h \
     mainwindow.h \
+    newpatientwindow.h \
+    overwritepatientdialog.h \
     spinboxdelegate.h
 
 FORMS += \
     calibrationwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    newpatientwindow.ui \
+    overwritepatientdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

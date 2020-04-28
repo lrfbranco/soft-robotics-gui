@@ -340,7 +340,7 @@ QPushButton:disabled {
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -613,6 +613,7 @@ QPushButton:disabled {
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionLoadPatient"/>
     <addaction name="actionSave"/>
    </widget>
@@ -633,6 +634,14 @@ QPushButton:disabled {
    </property>
    <property name="toolTip">
     <string>Save patient sessions</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="toolTip">
+    <string>New patient</string>
    </property>
   </action>
  </widget>

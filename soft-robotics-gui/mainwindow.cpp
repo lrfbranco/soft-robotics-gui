@@ -8,6 +8,9 @@
 #include <QString>
 #include <QThread>
 
+#include <newpatientwindow.h>
+#include <overwritepatientdialog.h>
+
 #include <QStandardItemModel>
 #include <QTextStream>
 #include <spinboxdelegate.h>
@@ -160,6 +163,7 @@ void MainWindow::on_actionLoadPatient_triggered()
         auto cellsOnCurrLine = currLine.split(",");
         cellsOnCurrLine.takeFirst(); // Remove first element of all lines because of metadata
 
+//        mModel->dele
         for (int jx = 0; jx < colCount; ++jx) {
             QStandardItem *item = new QStandardItem(cellsOnCurrLine.at(jx));
             mModel->setItem(ix, jx, item);
@@ -257,6 +261,19 @@ void MainWindow::showErrorMessage(QString msg, int errorNum){
             mBox.information(this, "Error", "An error has occurred.");
         break;
     }
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+
+    if (patientMetadata != nullptr){
+        OverwritePatientDialog opDialog(this);
+        if(opDialog.exec() == QDialog::Rejected)
+            return;
+    }
+    NewPatientWindow npw(this);
+    npw.setModal(true);
+    npw.exec();
 }
 
 
