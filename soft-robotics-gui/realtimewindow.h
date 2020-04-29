@@ -28,6 +28,9 @@ private:
     AxisTag *mTag1;
     AxisTag *mTag2;
     QTimer mDataTimer;
+
+    QCPItemRect *lowerRect;
+    QCPItemRect *upperRect;
 };
 
 #endif // REALTIMEWINDOW_H

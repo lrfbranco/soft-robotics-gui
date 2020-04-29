@@ -21,6 +21,7 @@ RealTimeWindow::RealTimeWindow(QWidget *parent) :
     mPlot->axisRect()->axis(QCPAxis::atRight, 0)->setPadding(30); // add some padding to have space for tags
     mPlot->axisRect()->axis(QCPAxis::atRight, 1)->setPadding(30); // add some padding to have space for tags
 
+
     // create graphs:
     mGraph1 = mPlot->addGraph(mPlot->xAxis, mPlot->axisRect()->axis(QCPAxis::atRight, 0));
     mGraph2 = mPlot->addGraph(mPlot->xAxis, mPlot->axisRect()->axis(QCPAxis::atRight, 1));
@@ -32,6 +33,29 @@ RealTimeWindow::RealTimeWindow(QWidget *parent) :
     mTag1->setPen(mGraph1->pen());
     mTag2 = new AxisTag(mGraph2->valueAxis());
     mTag2->setPen(mGraph2->pen());
+
+    // add regions
+//    mPlot->yAxis->setRange(QCPRange(-20, 2));
+//    mPlot->xAxis->setRange(QCPRange(-10, 10));
+
+    QBrush lightRedBrush = QBrush(QColor(255,100,120, 60));
+    QBrush lightYellowBrush = QBrush(QColor(255,240,100, 60));
+
+    lowerRect = new QCPItemRect(mPlot);
+    upperRect = new QCPItemRect(mPlot);
+
+    lowerRect->setPen(Qt::NoPen);
+    lowerRect->setBrush(lightRedBrush);
+    upperRect->setPen(Qt::NoPen);
+    upperRect->setBrush(lightYellowBrush);
+
+    qreal lowerBoundary = -0.5;
+    qreal upperBoundary = 0.8;
+    lowerRect->topLeft->setCoords(QPointF(INT_MIN, lowerBoundary));
+    lowerRect->bottomRight->setCoords(QPointF(INT_MAX, INT_MIN));
+    upperRect->topLeft->setCoords(QPointF(INT_MIN, INT_MAX));
+    upperRect->bottomRight->setCoords(QPointF(INT_MAX, upperBoundary));
+
 
     connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
     mDataTimer.start(40);
@@ -61,6 +85,8 @@ void RealTimeWindow::timerSlot()
   mTag2->updatePosition(graph2Value);
   mTag1->setText(QString::number(graph1Value, 'f', 2));
   mTag2->setText(QString::number(graph2Value, 'f', 2));
+
+  mPlot->yAxis->setRange(QCPRange(-1, 1));
 
   mPlot->replot();
 }
