@@ -39,6 +39,11 @@ private slots:
 
     void on_startButton_clicked();
 
+    void on_stopButton_clicked();
+
+    void on_yellowAlert_setState(bool newState);
+    void on_redAlert_setState(bool newState);
+
 private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;

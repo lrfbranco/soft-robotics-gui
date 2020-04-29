@@ -31,6 +31,14 @@ private:
 
     QCPItemRect *lowerRect;
     QCPItemRect *upperRect;
+    qreal lowerBoundary;
+    qreal upperBoundary;
+
+    void checkAlerts();
+
+signals:
+    void yellowAlertChanged(bool newState);
+    void redAlertChanged(bool newState);
 };
 
 #endif // REALTIMEWINDOW_H

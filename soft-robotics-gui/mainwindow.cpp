@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
+
 }
 
 MainWindow::~MainWindow()
@@ -313,10 +314,47 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_startButton_clicked()
 {
+    if (m_realTimeWindow != nullptr)
+        return;
+
     ui->labelRunningStopped->setText("Running");
     ui->iconRedAlert->setVisible(false);
     ui->iconYellowAlert->setVisible(false);
-    m_realTimeWindow = new RealTimeWindow(this);
-    m_realTimeWindow->show();
 
+    m_realTimeWindow = new RealTimeWindow(this);
+    m_realTimeWindow->setAttribute(Qt::WA_DeleteOnClose, true);
+    connect(m_realTimeWindow, SIGNAL(destroyed()), this, SLOT(on_stopButton_clicked()));
+    connect(m_realTimeWindow, SIGNAL(yellowAlertChanged(bool)), this, SLOT(on_yellowAlert_setState(bool)));
+    connect(m_realTimeWindow, SIGNAL(redAlertChanged(bool)), this, SLOT(on_redAlert_setState(bool)));
+
+    m_realTimeWindow->show();
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+    if (m_realTimeWindow == nullptr)
+        return;
+
+    ui->labelRunningStopped->setText("Stopped");
+    ui->iconRedAlert->setVisible(true);
+    ui->iconYellowAlert->setVisible(true);
+    ui->startButton->setFlat(false);
+    m_realTimeWindow->close();
+    m_realTimeWindow = nullptr;
+}
+
+void MainWindow::on_yellowAlert_setState(bool newState)
+{
+    if( ui->iconYellowAlert->isVisible() == newState)
+        return;
+
+    ui->iconYellowAlert->setVisible(newState);
+}
+
+void MainWindow::on_redAlert_setState(bool newState)
+{
+    if( ui->iconRedAlert->isVisible() == newState )
+        return;
+
+    ui->iconRedAlert->setVisible(newState);
 }

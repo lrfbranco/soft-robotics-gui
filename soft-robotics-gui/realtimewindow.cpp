@@ -49,8 +49,8 @@ RealTimeWindow::RealTimeWindow(QWidget *parent) :
     upperRect->setPen(Qt::NoPen);
     upperRect->setBrush(lightYellowBrush);
 
-    qreal lowerBoundary = -0.5;
-    qreal upperBoundary = 0.8;
+    lowerBoundary = -0.5;
+    upperBoundary = 0.8;
     lowerRect->topLeft->setCoords(QPointF(INT_MIN, lowerBoundary));
     lowerRect->bottomRight->setCoords(QPointF(INT_MAX, INT_MIN));
     upperRect->topLeft->setCoords(QPointF(INT_MIN, INT_MAX));
@@ -86,10 +86,28 @@ void RealTimeWindow::timerSlot()
   mTag1->setText(QString::number(graph1Value, 'f', 2));
   mTag2->setText(QString::number(graph2Value, 'f', 2));
 
-  mPlot->yAxis->setRange(QCPRange(-1.5, 1.5));
-  mPlot->yAxis2->setRange(QCPRange(-1.5, 1.5));
-  mPlot->axisRect()->axis(QCPAxis::atRight, 0)->setRange(QCPRange(-1.5, 1.5));
-  mPlot->axisRect()->axis(QCPAxis::atRight, 1)->setRange(QCPRange(-1.5, 1.5));
+  qreal ylim = 1.2;
+  mPlot->yAxis->setRange(QCPRange(-ylim, ylim));
+  mPlot->yAxis2->setRange(QCPRange(-ylim, ylim));
+  mPlot->axisRect()->axis(QCPAxis::atRight, 0)->setRange(QCPRange(-ylim, ylim));
+  mPlot->axisRect()->axis(QCPAxis::atRight, 1)->setRange(QCPRange(-ylim, ylim));
 
   mPlot->replot();
+  checkAlerts();
+}
+
+void RealTimeWindow::checkAlerts()
+{
+    auto val1 = mGraph1->data()->at(mGraph1->dataCount()-1)->value;
+    auto val2 = mGraph2->data()->at(mGraph2->dataCount()-1)->value;
+
+    if (val1 > upperBoundary || val2 > upperBoundary)
+        yellowAlertChanged(true);
+    else
+        yellowAlertChanged(false);
+
+    if (val1 < lowerBoundary || val2 < lowerBoundary)
+        redAlertChanged(true);
+    else
+        redAlertChanged(false);
 }
