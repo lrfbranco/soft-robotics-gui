@@ -13,6 +13,8 @@ class QStandardItemModel;
 class SpinBoxDelegate;
 class DoubleSpinBoxDelegate;
 class ComboBoxDelegate;
+class TimeEditDelegate;
+class DateEditDelegate;
 
 class MainWindow : public QMainWindow
 {
@@ -40,6 +42,8 @@ private:
     SpinBoxDelegate *m_spinnerDelegate;
     DoubleSpinBoxDelegate *m_doubleSpinDelegate;
     ComboBoxDelegate *m_comboBoxDelegate;
+    TimeEditDelegate *m_timeEditDelegate;
+    DateEditDelegate *m_dateEditDelegate;
     QString getValueAt(int ix, int jx);
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;

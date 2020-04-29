@@ -16,6 +16,8 @@
 #include <spinboxdelegate.h>
 #include <doublespinboxdelegate.h>
 #include <comboboxdelegate.h>
+#include <timeeditdelegate.h>
+#include <dateeditdelegate.h>
 #include <QSpinBox>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -31,10 +33,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     mModel = new QStandardItemModel(this);
     ui->gaitMetricsTableView->setModel(mModel);
+
+    m_timeEditDelegate = new TimeEditDelegate(this);
     m_spinnerDelegate = new SpinBoxDelegate(this);
     m_doubleSpinDelegate = new DoubleSpinBoxDelegate(this);
     m_comboBoxDelegate = new ComboBoxDelegate(this);
-    ui->gaitMetricsTableView->setItemDelegateForColumn(1, m_spinnerDelegate);
+    m_dateEditDelegate = new DateEditDelegate(this);
+
+    ui->gaitMetricsTableView->setItemDelegateForColumn(0, m_dateEditDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(1, m_timeEditDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(2, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(3, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);

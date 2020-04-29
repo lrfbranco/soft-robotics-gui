@@ -18,21 +18,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     calibrationwindow.cpp \
     comboboxdelegate.cpp \
+    dateeditdelegate.cpp \
     doublespinboxdelegate.cpp \
     main.cpp \
     mainwindow.cpp \
     newpatientwindow.cpp \
     overwritepatientdialog.cpp \
-    spinboxdelegate.cpp
+    spinboxdelegate.cpp \
+    timeeditdelegate.cpp
 
 HEADERS += \
     calibrationwindow.h \
     comboboxdelegate.h \
+    dateeditdelegate.h \
     doublespinboxdelegate.h \
     mainwindow.h \
     newpatientwindow.h \
     overwritepatientdialog.h \
-    spinboxdelegate.h
+    spinboxdelegate.h \
+    timeeditdelegate.h
 
 FORMS += \
     calibrationwindow.ui \
