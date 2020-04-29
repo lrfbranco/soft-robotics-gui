@@ -20,6 +20,8 @@
 #include <dateeditdelegate.h>
 #include <QSpinBox>
 
+#include <realtimewindow.h>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -47,7 +49,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
-
 
     QStringList m_TableHeader;
     m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
@@ -310,26 +311,9 @@ void MainWindow::on_actionNew_triggered()
 //    qDebug() << npw.getStrokeDate();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void MainWindow::on_startButton_clicked()
+{
+    m_realTimeWindow = new RealTimeWindow(this);
+    m_realTimeWindow->show();
+//    rt.exec();
+}

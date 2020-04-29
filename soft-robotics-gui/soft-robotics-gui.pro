@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -24,8 +24,11 @@ SOURCES += \
     mainwindow.cpp \
     newpatientwindow.cpp \
     overwritepatientdialog.cpp \
+    realtimewindow.cpp \
     spinboxdelegate.cpp \
-    timeeditdelegate.cpp
+    timeeditdelegate.cpp \
+    axistag.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     calibrationwindow.h \
@@ -35,14 +38,18 @@ HEADERS += \
     mainwindow.h \
     newpatientwindow.h \
     overwritepatientdialog.h \
+    realtimewindow.h \
     spinboxdelegate.h \
-    timeeditdelegate.h
+    timeeditdelegate.h \
+    axistag.h \
+    qcustomplot.h
 
 FORMS += \
     calibrationwindow.ui \
     mainwindow.ui \
     newpatientwindow.ui \
-    overwritepatientdialog.ui
+    overwritepatientdialog.ui \
+    realtimewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

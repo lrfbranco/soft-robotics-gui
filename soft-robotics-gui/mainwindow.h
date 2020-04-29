@@ -16,6 +16,8 @@ class ComboBoxDelegate;
 class TimeEditDelegate;
 class DateEditDelegate;
 
+class RealTimeWindow;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -35,6 +37,8 @@ private slots:
 
     void on_actionNew_triggered();
 
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     CalibrationWindow *calibrWin;
@@ -49,6 +53,8 @@ private:
     QStringList gaitMetricsTableHeader;
     qint32 getMonthsSinceStroke();
     QVector<int> columnsDelegateSpinner, columnsDelegateDoubleSpinner, columnsDelegateComboBox;
+
+    RealTimeWindow *m_realTimeWindow;
 
     void setDateLabel();
     void setDebugLabel();

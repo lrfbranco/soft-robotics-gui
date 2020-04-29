@@ -6,8 +6,11 @@ main.o
 mainwindow.o
 newpatientwindow.o
 overwritepatientdialog.o
+realtimewindow.o
 spinboxdelegate.o
 timeeditdelegate.o
+axistag.o
+qcustomplot.o
 qrc_Resources.o
 moc_calibrationwindow.o
 moc_comboboxdelegate.o
@@ -16,5 +19,8 @@ moc_doublespinboxdelegate.o
 moc_mainwindow.o
 moc_newpatientwindow.o
 moc_overwritepatientdialog.o
+moc_realtimewindow.o
 moc_spinboxdelegate.o
 moc_timeeditdelegate.o
+moc_axistag.o
+moc_qcustomplot.o
