@@ -35,7 +35,7 @@ RealTimeWindow::RealTimeWindow(QWidget *parent) :
     mTag2->setPen(mGraph2->pen());
 
     // add regions
-//    mPlot->yAxis->setRange(QCPRange(-20, 2));
+    mPlot->yAxis->setRange(QCPRange(-1.5, 1.5));
 //    mPlot->xAxis->setRange(QCPRange(-10, 10));
 
     QBrush lightRedBrush = QBrush(QColor(255,100,120, 60));
@@ -86,7 +86,10 @@ void RealTimeWindow::timerSlot()
   mTag1->setText(QString::number(graph1Value, 'f', 2));
   mTag2->setText(QString::number(graph2Value, 'f', 2));
 
-  mPlot->yAxis->setRange(QCPRange(-1, 1));
+  mPlot->yAxis->setRange(QCPRange(-1.5, 1.5));
+  mPlot->yAxis2->setRange(QCPRange(-1.5, 1.5));
+  mPlot->axisRect()->axis(QCPAxis::atRight, 0)->setRange(QCPRange(-1.5, 1.5));
+  mPlot->axisRect()->axis(QCPAxis::atRight, 1)->setRange(QCPRange(-1.5, 1.5));
 
   mPlot->replot();
 }

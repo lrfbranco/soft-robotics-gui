@@ -313,7 +313,10 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_startButton_clicked()
 {
+    ui->labelRunningStopped->setText("Running");
+    ui->iconRedAlert->setVisible(false);
+    ui->iconYellowAlert->setVisible(false);
     m_realTimeWindow = new RealTimeWindow(this);
     m_realTimeWindow->show();
-//    rt.exec();
+
 }
