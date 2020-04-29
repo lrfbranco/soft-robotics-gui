@@ -144,9 +144,9 @@ void MainWindow::on_actionLoadPatient_triggered()
     auto currLine = xin.readLine();
     auto cellsOnCurrLine = currLine.split(",");
     patientMetadata = cellsOnCurrLine.takeFirst(); // Remove first for metadata
-    auto metadata = patientMetadata.split("#");
     gaitMetricsTableHeader = cellsOnCurrLine; // The rest is header
 
+    auto metadata = patientMetadata.split("#");
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
     ui->strokeDateValue->setText(metadata.at(2).split(":").at(1));
@@ -284,7 +284,17 @@ void MainWindow::on_actionNew_triggered()
     ts << "BirthDate:" << ui->birthDateValue->text() << "#";
     ts << "Created on:" << QDate::currentDate().toString("MM/dd/yyyy");
 
-    qDebug() << patientMetadata;
+    // Recreate rest of header:
+    gaitMetricsTableHeader.clear();
+    gaitMetricsTableHeader << "Date"
+                           << "10m (mm:ss)"
+                           << "6MWT (m)"
+                           << "Total Distance (m)"
+                           << "Average Speed (m/s)"
+                           << "Disconfort Level"
+                           << "Difficulty Level";
+
+    qDebug() << gaitMetricsTableHeader;
 
 //    auto metadata = patientMetadata.split("#");
 //    qDebug() << npw.getPatientName();
