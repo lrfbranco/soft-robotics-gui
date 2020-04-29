@@ -37,14 +37,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->setItemDelegateForColumn(1, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(2, m_spinnerDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(3, m_spinnerDelegate);
-//    ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
-//    ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
-//    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(4, m_doubleSpinDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
+    ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
 
-    columnsDelegateSpinner << 1 << 2 << 3;
-    columnsDelegateDoubleSpinner << 4;
-    columnsDelegateComboBox << 5 << 6;
 
+    QStringList m_TableHeader;
+    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
+                    << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
+    mModel->setHorizontalHeaderLabels(m_TableHeader);
+    ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
 }
 
 MainWindow::~MainWindow()
@@ -96,7 +100,12 @@ void MainWindow::initGaitMetricsTable(){
 //    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
 //                 << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
 //    m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
-//    m_pTableWidget->setWordWrap(true);
+    //    m_pTableWidget->setWordWrap(true);
+}
+
+void MainWindow::setTimeSinceStroke()
+{
+    ui->timeSinceStroke->setText(QString("(%1 months ago)").arg(getMonthsSinceStroke()));
 }
 
 void MainWindow::on_calibrationButton_clicked()
@@ -139,18 +148,10 @@ void MainWindow::on_actionLoadPatient_triggered()
     gaitMetricsTableHeader = cellsOnCurrLine; // The rest is header
 
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
-//    ui->patientNameValue->setFixedSize(ui->patientNameValue->sizeHint());
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
-//    ui->physicianNameValue->setFixedSize(ui->physicianNameValue->sizeHint());
     ui->strokeDateValue->setText(metadata.at(2).split(":").at(1));
-//    ui->strokeDateValue->setFixedSize(ui->strokeDateValue->sizeHint());
 
-    ui->timeSinceStroke->setText(
-                QString("(%1 months ago)").arg(getMonthsSinceStroke())
-                );
-//    ui->timeSinceStroke->setFixedSize(ui->timeSinceStroke->sizeHint());
-
-
+    setTimeSinceStroke();
 
     const int colCount = gaitMetricsTableHeader.size();
     mModel->setColumnCount(colCount);
@@ -172,13 +173,6 @@ void MainWindow::on_actionLoadPatient_triggered()
     }
     file.close();
 
-    QStringList m_TableHeader;
-    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
-                    << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
-    mModel->setHorizontalHeaderLabels(m_TableHeader);
-    ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -275,7 +269,28 @@ void MainWindow::on_actionNew_triggered()
     NewPatientWindow npw(this);
     if (npw.exec() == QDialog::Rejected)
         return;
-    npw.getBirthDate();
+
+    ui->patientNameValue->setText(npw.getPatientName());
+    ui->physicianNameValue->setText(npw.getPhysicianName());
+    ui->birthDateValue->setText(npw.getBirthDate().toString("MM/dd/yyyy"));
+    ui->strokeDateValue->setText(npw.getStrokeDate().toString("MM/dd/yyyy"));
+
+    // Reconstruct metadata:
+    patientMetadata.clear();
+    QTextStream ts(&patientMetadata);
+    ts << "Name:" << ui->patientNameValue->text() << "#";
+    ts << "Physician:" << ui->physicianNameValue->text() << "#";
+    ts << "StrokeDate:" << ui->strokeDateValue->text() << "#";
+    ts << "BirthDate:" << ui->birthDateValue->text() << "#";
+    ts << "Created on:" << QDate::currentDate().toString("MM/dd/yyyy");
+
+    qDebug() << patientMetadata;
+
+//    auto metadata = patientMetadata.split("#");
+//    qDebug() << npw.getPatientName();
+//    qDebug() << npw.getPhysicianName();
+//    qDebug() << npw.getBirthDate();
+//    qDebug() << npw.getStrokeDate();
 }
 
 

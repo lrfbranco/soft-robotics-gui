@@ -51,6 +51,7 @@ private:
     void initStatusIcons();
     void setButtonStyles();
     void initGaitMetricsTable();
+    void setTimeSinceStroke();
 
     void showErrorMessage(QString msg = nullptr, int errorNum = 0);
 };
