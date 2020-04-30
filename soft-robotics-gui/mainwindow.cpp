@@ -137,6 +137,12 @@ void MainWindow::on_calibrationButton_clicked()
 
 void MainWindow::on_actionLoadPatient_triggered()
 {
+    if (patientMetadata != nullptr){
+        OverwritePatientDialog opDialog(this);
+        if(opDialog.exec() == QDialog::Rejected)
+            return;
+    }
+
     QFileDialog fileDialog(this);
     fileDialog.setFileMode(QFileDialog::ExistingFile);
     fileDialog.setViewMode(QFileDialog::Detail);
@@ -282,7 +288,6 @@ void MainWindow::showErrorMessage(QString msg, int errorNum){
 
 void MainWindow::on_actionNew_triggered()
 {
-
     if (patientMetadata != nullptr){
         OverwritePatientDialog opDialog(this);
         if(opDialog.exec() == QDialog::Rejected)
@@ -297,6 +302,8 @@ void MainWindow::on_actionNew_triggered()
     ui->physicianNameValue->setText(npw.getPhysicianName());
     ui->birthDateValue->setText(npw.getBirthDate().toString("MM/dd/yyyy"));
     ui->strokeDateValue->setText(npw.getStrokeDate().toString("MM/dd/yyyy"));
+
+    setTimeSinceStroke();
 
     // Reconstruct metadata:
     patientMetadata.clear();
@@ -316,8 +323,8 @@ void MainWindow::on_actionNew_triggered()
                            << "Average Speed (m/s)"
                            << "Disconfort Level"
                            << "Difficulty Level";
-    mModel->clear();
-    setupGaitTableHeader();
+//    mModel->clear();
+//    setupGaitTableHeader();
 
 //    qDebug() << gaitMetricsTableHeader;
 
