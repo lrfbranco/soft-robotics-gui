@@ -597,7 +597,7 @@ QPushButton:disabled {
        <string notr="true">QGroupBox {
     background-color: #D8DAF0;
     border: 1px black;
-    margin-top: 6ex; /* leave space at the top for the title */
+    margin-top: 7ex; /* leave space at the top for the title */
 }
 QGroupBox::title {
     subcontrol-origin: margin;

@@ -11,6 +11,10 @@ NewPatientWindow::NewPatientWindow(QWidget *parent) :
     ui->setupUi(this);
     initialized = false;
     requiredFields = {false, false, false, false};
+    ui->lineEditName->setMaxLength(36);
+    ui->lineEditPhysician->setMaxLength(36);
+    ui->dateEditBirth->setMaximumDate( QDate::currentDate() );
+    ui->dateEditStroke->setMaximumDate( QDate::currentDate() );
 }
 
 NewPatientWindow::~NewPatientWindow()

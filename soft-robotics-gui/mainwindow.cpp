@@ -85,7 +85,7 @@ void MainWindow::setDateLabel(){
 }
 
 void MainWindow::setDebugLabel(){
-    ui->debugLabel->setText("test");
+    ui->debugLabel->setText("V 1.0");
 }
 
 
