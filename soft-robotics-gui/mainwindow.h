@@ -26,23 +26,21 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+    void gaitTableHeightChanged();
+
 private slots:
-//    void on_labelRunningStopped_objectNameChanged(const QString &objectName);
-
     void on_calibrationButton_clicked();
-
     void on_actionLoadPatient_triggered();
-
     void on_actionSave_triggered();
-
     void on_actionNew_triggered();
-
     void on_startButton_clicked();
-
     void on_stopButton_clicked();
-
     void on_yellowAlert_setState(bool newState);
     void on_redAlert_setState(bool newState);
+    void on_addMetricButton_clicked();
+    void on_deleteMetricButton_clicked();
+    void gaitTable_changeHeight();
 
 private:
     Ui::MainWindow *ui;
@@ -57,7 +55,8 @@ private:
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;
     qint32 getMonthsSinceStroke();
-    QVector<int> columnsDelegateSpinner, columnsDelegateDoubleSpinner, columnsDelegateComboBox;
+    int tableHeaderHeight;
+    QStringList m_TableHeader;
 
     RealTimeWindow *m_realTimeWindow;
 
@@ -69,5 +68,6 @@ private:
     void setTimeSinceStroke();
 
     void showErrorMessage(QString msg = nullptr, int errorNum = 0);
+    void setupGaitTableHeader();
 };
 #endif // MAINWINDOW_H

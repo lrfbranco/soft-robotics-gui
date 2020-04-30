@@ -22,6 +22,8 @@
 
 #include <realtimewindow.h>
 
+#define GAIT_METRICS_TABLE_ROW_HEIGHT 30
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -50,14 +52,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gaitMetricsTableView->setItemDelegateForColumn(5, m_comboBoxDelegate);
     ui->gaitMetricsTableView->setItemDelegateForColumn(6, m_comboBoxDelegate);
 
-    QStringList m_TableHeader;
-    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
-                    << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
-    mModel->setHorizontalHeaderLabels(m_TableHeader);
-    ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
+    setupGaitTableHeader();
+//    ui->gaitMetricsTableView->setSize);
 
+    connect(this, SIGNAL(gaitTableHeightChanged()), this, SLOT(gaitTable_changeHeight()));
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +63,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setupGaitTableHeader()
+{
+    m_TableHeader.clear();
+    m_TableHeader <<"Date" << "10m\n(mm:ss)" << "6MWT\n(m)" << "Total\nDistance\n(m)"
+                    << "Average\nSpeed\n(m\\s)" << "Disconfort\nLevel" << "Dificulty\nLevel";
+    mModel->setHorizontalHeaderLabels(m_TableHeader);
+    ui->gaitMetricsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->gaitMetricsTableView->horizontalHeader()->setStyleSheet("font-weight: bold;");
+    mModel->setColumnCount(m_TableHeader.size());
+    tableHeaderHeight = ui->gaitMetricsTableView->horizontalHeader()->sizeHint().height() + 1;
+    ui->gaitMetricsTableView->setMinimumHeight(tableHeaderHeight);
+    gaitTable_changeHeight();
+}
 void MainWindow::setDateLabel(){
     QLocale::setDefault(QLocale("en_US"));
     QDate currDate = QDate::currentDate();
@@ -159,6 +171,7 @@ void MainWindow::on_actionLoadPatient_triggered()
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
     ui->strokeDateValue->setText(metadata.at(2).split(":").at(1));
+    ui->birthDateValue->setText(metadata.at(3).split(":").at(1));
 
     setTimeSinceStroke();
 
@@ -176,18 +189,19 @@ void MainWindow::on_actionLoadPatient_triggered()
 //        mModel->dele
         for (int jx = 0; jx < colCount; ++jx) {
             QStandardItem *item = new QStandardItem(cellsOnCurrLine.at(jx));
+            item->setSizeHint(QSize(25, GAIT_METRICS_TABLE_ROW_HEIGHT));
             mModel->setItem(ix, jx, item);
         }
         ++ix;
     }
     file.close();
-
+    gaitTable_changeHeight();
 }
 
 void MainWindow::on_actionSave_triggered()
 {
     if (patientMetadata == nullptr){
-        showErrorMessage("patientMetadata not defined.", 0);
+        showErrorMessage("Please insert a New patient or Load an existing one", 0);
         return;
     }
     auto filename = QFileDialog::getSaveFileName(this,
@@ -302,8 +316,10 @@ void MainWindow::on_actionNew_triggered()
                            << "Average Speed (m/s)"
                            << "Disconfort Level"
                            << "Difficulty Level";
+    mModel->clear();
+    setupGaitTableHeader();
 
-    qDebug() << gaitMetricsTableHeader;
+//    qDebug() << gaitMetricsTableHeader;
 
 //    auto metadata = patientMetadata.split("#");
 //    qDebug() << npw.getPatientName();
@@ -357,4 +373,40 @@ void MainWindow::on_redAlert_setState(bool newState)
         return;
 
     ui->iconRedAlert->setVisible(newState);
+}
+
+void MainWindow::on_addMetricButton_clicked()
+{
+    int rowCount = mModel->rowCount() +1;// Update nRows of table
+    mModel->setRowCount(rowCount);
+
+    for (int j = 0; j < mModel->columnCount(); j++){
+        QStandardItem *item = new QStandardItem("...");
+        item->setSizeHint(QSize(25, GAIT_METRICS_TABLE_ROW_HEIGHT));
+        mModel->setItem(rowCount-1, j, item);
+    }
+    gaitTableHeightChanged();
+}
+
+void MainWindow::on_deleteMetricButton_clicked()
+{
+    int rowCount = mModel->rowCount();
+    if (rowCount == 0)
+        return;
+
+    rowCount--;    // Update nRows of table
+    mModel->setRowCount(rowCount);
+    gaitTableHeightChanged();
+}
+
+void MainWindow::gaitTable_changeHeight()
+{
+    qreal rowCount = mModel->rowCount();
+    if (rowCount > 4)
+        rowCount = 4.5;
+    int newSize = tableHeaderHeight +
+            GAIT_METRICS_TABLE_ROW_HEIGHT * rowCount + 1.4*rowCount;
+    ui->gaitMetricsTableView->setMinimumHeight( newSize );
+    ui->gaitMetricsTableView->setMaximumHeight( newSize );
+    ui->gaitMetricsTableView->resizeRowsToContents();
 }
