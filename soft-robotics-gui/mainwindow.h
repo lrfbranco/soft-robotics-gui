@@ -66,6 +66,7 @@ private:
     void setButtonStyles();
     void initGaitMetricsTable();
     void setTimeSinceStroke();
+    void adjustMetadataSizes();
 
     void showErrorMessage(QString msg = nullptr, int errorNum = 0);
     void setupGaitTableHeader();

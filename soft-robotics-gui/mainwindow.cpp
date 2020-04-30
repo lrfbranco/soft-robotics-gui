@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     setButtonStyles();
     initGaitMetricsTable();
 
+
     mModel = new QStandardItemModel(this);
     ui->gaitMetricsTableView->setModel(mModel);
 
@@ -126,7 +127,20 @@ void MainWindow::initGaitMetricsTable(){
 
 void MainWindow::setTimeSinceStroke()
 {
-    ui->timeSinceStroke->setText(QString("(%1 months ago)").arg(getMonthsSinceStroke()));
+    QString str = ui->strokeDateValue->text();
+    str = str + QString(" (%1 months ago)").arg(getMonthsSinceStroke());
+    ui->strokeDateValue->setText(str);
+//    ui->timeSinceStroke->setText(QString("(%1 mos ago)").arg(getMonthsSinceStroke()));
+}
+
+void MainWindow::adjustMetadataSizes()
+{
+//    qDebug() << "adjusting sizes: (" << ui->patientNameValue->sizeHint()<< ") " << ui->patientNameValue->text();
+
+    ui->patientNameValue    ->adjustSize();
+    ui->physicianNameValue  ->adjustSize();
+    ui->birthDateValue      ->adjustSize();
+    ui->strokeDateValue     ->adjustSize();
 }
 
 void MainWindow::on_calibrationButton_clicked()
@@ -202,6 +216,7 @@ void MainWindow::on_actionLoadPatient_triggered()
     }
     file.close();
     gaitTable_changeHeight();
+    adjustMetadataSizes();
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -323,16 +338,7 @@ void MainWindow::on_actionNew_triggered()
                            << "Average Speed (m/s)"
                            << "Disconfort Level"
                            << "Difficulty Level";
-//    mModel->clear();
-//    setupGaitTableHeader();
-
-//    qDebug() << gaitMetricsTableHeader;
-
-//    auto metadata = patientMetadata.split("#");
-//    qDebug() << npw.getPatientName();
-//    qDebug() << npw.getPhysicianName();
-//    qDebug() << npw.getBirthDate();
-//    qDebug() << npw.getStrokeDate();
+    adjustMetadataSizes();
 }
 
 void MainWindow::on_startButton_clicked()
