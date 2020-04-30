@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "calibrationwindow.h"
 #include <QVector>
+#include <QDate>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -54,6 +55,7 @@ private:
     QString getValueAt(int ix, int jx);
     QString patientMetadata;
     QStringList gaitMetricsTableHeader;
+    QDate strokeDate;
     qint32 getMonthsSinceStroke();
     int tableHeaderHeight;
     QStringList m_TableHeader;

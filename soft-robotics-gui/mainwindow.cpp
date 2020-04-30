@@ -191,6 +191,7 @@ void MainWindow::on_actionLoadPatient_triggered()
     ui->patientNameValue->setText(metadata.at(0).split(":").at(1));
     ui->physicianNameValue->setText(metadata.at(1).split(":").at(1));
     ui->strokeDateValue->setText(metadata.at(2).split(":").at(1));
+    strokeDate = QDate::fromString(ui->strokeDateValue->text(), "MM/dd/yyyy");
     ui->birthDateValue->setText(metadata.at(3).split(":").at(1));
 
     setTimeSinceStroke();
@@ -268,15 +269,7 @@ QString MainWindow::getValueAt(int ix, int jx)
 
 qint32 MainWindow::getMonthsSinceStroke()
 {
-    QLocale::setDefault(QLocale("en_US"));
-    QDate currentDate = QDate::currentDate();
-
-    QDate strokeDate = QDate::fromString(
-                ui->strokeDateValue->text(),
-                "MM/dd/yyyy");
-
-    auto daysSinceStroke = strokeDate.daysTo(currentDate);
-
+    auto daysSinceStroke = strokeDate.daysTo(QDate::currentDate());
     return (qint32) daysSinceStroke / 30;
 }
 
@@ -317,6 +310,7 @@ void MainWindow::on_actionNew_triggered()
     ui->physicianNameValue->setText(npw.getPhysicianName());
     ui->birthDateValue->setText(npw.getBirthDate().toString("MM/dd/yyyy"));
     ui->strokeDateValue->setText(npw.getStrokeDate().toString("MM/dd/yyyy"));
+    strokeDate = npw.getStrokeDate();
 
     setTimeSinceStroke();
 
@@ -325,7 +319,7 @@ void MainWindow::on_actionNew_triggered()
     QTextStream ts(&patientMetadata);
     ts << "Name:" << ui->patientNameValue->text() << "#";
     ts << "Physician:" << ui->physicianNameValue->text() << "#";
-    ts << "StrokeDate:" << ui->strokeDateValue->text() << "#";
+    ts << "StrokeDate:" << strokeDate.toString("MM/dd/yyyy") << "#";
     ts << "BirthDate:" << ui->birthDateValue->text() << "#";
     ts << "Created on:" << QDate::currentDate().toString("MM/dd/yyyy");
 
