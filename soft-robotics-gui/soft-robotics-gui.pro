@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -16,16 +16,47 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    calibrationwindow.cpp \
+    comboboxdelegate.cpp \
+    dateeditdelegate.cpp \
+    doublespinboxdelegate.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    newpatientwindow.cpp \
+    overwritepatientdialog.cpp \
+    realtimewindow.cpp \
+    spinboxdelegate.cpp \
+    timeeditdelegate.cpp \
+    axistag.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
-    mainwindow.h
+    calibrationwindow.h \
+    comboboxdelegate.h \
+    dateeditdelegate.h \
+    doublespinboxdelegate.h \
+    mainwindow.h \
+    newpatientwindow.h \
+    overwritepatientdialog.h \
+    realtimewindow.h \
+    spinboxdelegate.h \
+    timeeditdelegate.h \
+    axistag.h \
+    qcustomplot.h
 
 FORMS += \
-    mainwindow.ui
+    calibrationwindow.ui \
+    mainwindow.ui \
+    newpatientwindow.ui \
+    overwritepatientdialog.ui \
+    realtimewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Resources.qrc
+
+QMAKE_CXXFLAGS += -std=gnu++14
