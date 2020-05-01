@@ -145,7 +145,7 @@
         <string>Format: MM/DD/YYYY</string>
        </property>
        <property name="text">
-        <string>Date of Stoke:</string>
+        <string>Date of Stroke:</string>
        </property>
       </widget>
      </item>
