@@ -1,5 +1,3 @@
-# soft-robotics-gui
-
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/University_of_Houston_logo.svg/1280px-University_of_Houston_logo.svg.png" width="350">
 
 # TrueStep - Graphical User Interface
