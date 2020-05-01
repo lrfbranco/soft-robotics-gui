@@ -25,8 +25,9 @@
 #define GAIT_METRICS_TABLE_ROW_HEIGHT 30
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    m_realTimeWindow(nullptr)
 {
     ui->setupUi(this);
     setDebugLabel();
