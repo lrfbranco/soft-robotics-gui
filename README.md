@@ -3,12 +3,11 @@
 # TrueStep - Graphical User Interface
 
 <img src="https://github.com/lrfbranco/soft-robotics-gui/blob/master/soft-robotics-gui/figures/main1.png?raw=true" width="500">
-![]()
 
 ------------
 ### About The Project
 
-This project consists in designing a Graphical User Interface (GUI) for the soft exoskeleton TrueStep, designed in Rehabilitation Engineering's course by Dr. Jose Luis Contreras-Vidal. This class was conducted in the University of Houston's College of Engineering, Spring 2020.
+This project was the design of a Graphical User Interface (GUI) for the soft exoskeleton TrueStep, designed in Rehabilitation Engineering's course by Dr. Jose Luis Contreras-Vidal. This class was conducted in the University of Houston's College of Engineering, Spring 2020.
 
 ### About Team Members
 - **Faculty Mentor: **Jose L Contreras-Vidal, PhD - jlcontreras-vidal@uh.edu
