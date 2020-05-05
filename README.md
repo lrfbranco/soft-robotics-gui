@@ -28,7 +28,7 @@ The GUI was developed using [Qt](https://www.qt.io/ "Qt") for C++ and makes use 
 
 This is an early version, capable of Creating, Saving and Loading files in CSV format specific to the program. Also, placeholder for Gait Metrics and Sensor Calibration were developed, aswell as controls for starting and stopping the system.
 
-A video of the system's functionalities is available [here](https://github.com/lrfbranco/soft-robotics-gui/blob/master/soft-robotics-gui/figures/finalResult.avi "here").
+A video of the system's functionalities is available [here](https://github.com/lrfbranco/soft-robotics-gui/blob/master/soft-robotics-gui/figures/finalResult.avi "here"). Or a gif [here](https://github.com/lrfbranco/soft-robotics-gui/blob/master/soft-robotics-gui/figures/finalResult.gif "here")!
 
 ------------
 ### Images
